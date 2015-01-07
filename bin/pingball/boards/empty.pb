@@ -1,0 +1,1 @@
+board name=Empty gravity = 25.0

@@ -1,0 +1,93 @@
+Testing strategy for our GUI:
+
+Followings are the steps that we did to make sure that our design of GUI is correct:
+
+// Basic testing steps for GUI with no command line and server connection.
+1. Start a board from Pingball.java without command line argument
+2. Checks whether it can display nothing at the beginning
+3. Upload flippers.pb, and observe whether there is a problem with
+   graphical representation of gadgets, and make sure that no gadget is missing
+4. Click start button to start the game, make sure everything is happening as expected
+5. Click pause button to check that game pauses. 
+6. Click start button again, and observe that game starts exactly where it stopped
+
+Possible things that user might do:
+6A. Click start button for multiple times, and make sure that nothing is happening
+6B. Click pause button multiple times now, and make sure that nothing unexpected is happening
+
+7. Click restart button, and make sure that board starts with initial states, and repeat step 4-6B
+8. Test speed slider by increasing and decreasing the speed of the simulation.
+Ensure that the animation still runs smoothly and that the GUI doesn't freeze.
+
+// Testing loading only correct files.
+1. Make sure that no files without the .pb extension show up.
+2. Check that invalid board formats will result in an empty board showing up. Game does not crash.
+
+// Testing GUI with server interaction (portal's and joining a walls from command line argument)
+
+1. Click select board file. Then, Upload a board called defaultPortal1.pb (which has portal on it)
+2. Run it without connecting to server by clicking start, and make sure that ball pass through portal
+3. Go back to eclipse, and run server with its default option
+4. Go back to GUI, and write down 'localhost' or '127.0.0.1' on host name, and port number 10987
+5. Click connect to server, and make sure that there are no error message on server's console view
+6. Restart the board, and repeat step 4
+7. Go back to eclipse, and creates another GUI
+8. For new GUI upload defaultPortal2.pb, and repeat step 4
+9. Run both of boards, and make sure that balls are going between two boards
+
+///Following is necessary steps to check whether server joins them, and walls shows expected name
+10. Go back to eclipse, and write down following in console:
+		"h defaultPortal1 defaultPortal2"
+		"v defaultPortal1 defaultPortal2"
+11. Go back to GUI, and make sure that walls displays who they are connected, and balls transition as expected
+/// Testing disconnection from server
+12. Disconnect one of boards from server, by clicking disconnect button. 
+	Make sure that two separated boards are running as expected, and wall names are disappeared.
+Possible things that user might do:
+
+12A. Click on connect button without entering anything, and make sure that you will get error messages
+12B. Repeat step 4 for three times, and make sure that board is till running as expected.
+
+13. Close everything you opened to prepare for next test cases
+
+// Testing GUI initialization from command line argument
+ 0. Make sure that your server is still running with port 10000
+ 1. Go to eclipse, and run Pingball.java with following command line argument 
+ 	"--host localhost -- port 10000 src/pingball/boards/defaultPortal1.pb"
+ 2. GUI will pop out, and make sure that board is displayed correctly. 
+ 3. Go back to eclipse, run Pingball.java with following command line arguments
+ 	"--host localhost -- port 10000 src/pingball/boards/defaultPortal2.pb"
+ 4. Now, you will have two GUI connected with server, and check their characteristics
+ 	Seriously, observe that balls are going between the two boards with no problem
+ 5. Kill everything that was opened at this stage to prepare for next test cases
+
+ // Testing keys are implemented correctly
+ 1. Start a Pingball GUI with no command line argument
+ 2. Upload a board file "key_flipper.pb" by clicking on 'select board file' button
+ 3. Start a game
+ 4. Wait for 10 seconds until ball is captured by absorber
+ 5. Click space bar to trigger absorber
+ 6. Click 'F', and 'J' to move flippers
+ 7. Play for 2 minutes, and make sure that everything is running correctly. 
+ 8. Try "key_test.pb". Make sure 'a', 's', 'd', '0', 'j', 'k', 'l', ';' trigger
+ one flipper each when you press down on these keys. The spacebar triggers the absorber
+ when it is RELEASED.
+ 
+ // Testing different hosts
+ 1. Create a server on one computer running on port 12000. Start a GUI on that
+ computer, run defaultPortal2 and connect to the server.
+ 2. Use another computer to start a GUI. Load defaultPortal1. Connect to the 
+ server on the other computer.
+ 3. Make sure that balls are portalling between the portals.
+ 4. Connect the two boards vertically so that you create an infinite loop. Make sure
+ balls are continuously falling between the two boards.
+ 5. Change the playback speed on both boards to be sure things still work.
+ 6. Disconnect one board and make sure the balls stop falling between the boards.
+ 7. Try to connect two boards again. Make sure the server tells you that one of
+ the boards doesn't exist.
+ 
+ // Testing super complex things
+ 
+ 1. Just play as a normal user, and do anything you want until finding a bug. 
+ 2. Well, ten minutes passed with doing random things. Then, it seems like a good design
+ 
